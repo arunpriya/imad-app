@@ -18,6 +18,6 @@ button.onclick=function(){
     };
     
     //Make the request
-    request.open('GET','http://http://arunpriyadharmaraj73.imad.hasura-app.io/counter',true);
+    request.open('GET','http://arunpriyadharmaraj73.imad.hasura-app.io/counter',true);
     request.send(null);
 };
