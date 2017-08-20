@@ -2,6 +2,8 @@ var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
 var Pool=require('pg').Pool;
+var cypto=require('crypto');
+
 
 var config={
     user:'arunpriyadharmaraj73',
@@ -49,6 +51,17 @@ function createTemplate(data){
         
     return htmlTemplate;
 }
+
+function hash(input,salt){
+    var hashed=crypto.pbkdf2Sync(input,salt,10000,512,'sha512');
+    return hashed.toSting('hex');
+}
+
+app.get('/hash/:input',function(req,res){
+    var hashedString=hash(req.params.input,'this-is-some-random-string');
+    res.send(hashedString);
+});
+
 
 var pool=new Pool(config);
 app.get('/test-db',function(req,res){
