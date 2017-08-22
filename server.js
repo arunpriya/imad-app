@@ -76,6 +76,20 @@ app.get('/test-db',function(req,res){
     });
 });
 
+app.post('/create-user',function(req,res){
+    var username=req.body.username;
+    var password=req.body.password;
+    var salt=crypto.randomBytes(128).toString('hex');
+    var dbString=hash(password,salt);
+   pool.query('SELECT * FROM test',function(err,result){
+        if(err){
+            res.status(500).send(err.toString());
+        }else{
+            res.send('User successfully created:'+username);
+        }
+    }); 
+});
+
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
