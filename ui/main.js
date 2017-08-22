@@ -10,7 +10,12 @@ submit.onclick = function(){
         if(request.readyState === XMLHttpRequest.DONE){
             //take some action
             if(request.status === 200){
-                  console.log('user logged');
+                  console.log('user logged in');
+                  alert('Logged in successfully');
+            }else if(request.status === 403){
+                alert('username/password is incorrect');
+            }else if(request.status === 500){
+                alert('something went wrong');
             }
         }
   };
@@ -20,5 +25,6 @@ submit.onclick = function(){
     console.log(username);
     console.log(password);
     request.open('POST','http://arunpriyadharmaraj73.imad.hasura-app.io/login',true);
+    request.setRequestHeader('Content-Type':'application/json');
     request.send(JSON.stringify({username:username,password:password}));
 };
